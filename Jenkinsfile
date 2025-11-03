@@ -3,18 +3,11 @@ pipeline {
 
     tools {
         maven 'Maven3'       // Must match the name configured in Jenkins → Global Tool Configuration
-        jdk 'jdk17'          // Use your installed JDK (or jdk11/jdk21 as per your setup)
     }
 
     environment {
         ALLURE_RESULTS = "target/allure-results"
         ALLURE_REPORT = "target/site/allure-maven-plugin"
-    }
-
-    options {
-        timestamps()
-        ansiColor('xterm')
-        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     stages {
