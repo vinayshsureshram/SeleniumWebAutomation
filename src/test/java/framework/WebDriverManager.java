@@ -46,7 +46,7 @@ public class WebDriverManager {
 
     }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         return tlDriver.get();
     }
 

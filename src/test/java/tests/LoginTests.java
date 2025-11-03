@@ -15,6 +15,6 @@ public class LoginTests extends BaseTest {
         loginPage.enterUsername("testbanker")
                 .enterPassword("tester")
                 .clickLoginButton();
-        Assert.assertEquals(accountsPage.getPageTitle(), "ParaBank | Accounts Overview");
+        Assert.assertEquals(accountsPage.getPageTitle(), "ParaBank | Accounts1 Overview");
     }
 }

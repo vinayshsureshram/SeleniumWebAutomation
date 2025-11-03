@@ -14,7 +14,7 @@ public class AccountsTests extends BaseTest {
         loginPage.enterUsername("testbanker")
                 .enterPassword("tester")
                 .clickLoginButton();
-        accountsPage.clickAccountNumber("27441");
+        accountsPage.clickAccountNumber("17118");
         Assert.assertEquals(accountDetailsPage.getAccountDetailsHeaderText(), "Account Details");
     }
 }
