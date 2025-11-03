@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'       // Must match the name configured in Jenkins → Global Tool Configuration
+        allure 'Allure_2.29.0'  // Make sure you configure Allure in Jenkins tools
     }
 
     environment {
