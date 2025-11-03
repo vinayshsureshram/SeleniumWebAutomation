@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'       // Must match the name configured in Jenkins → Global Tool Configuration
-        allure 'Allure_2.29.0'  // Make sure you configure Allure in Jenkins tools
+        maven 'Maven3'             // Must match Jenkins tool name
+        allure 'Allure_2.29.0'     // Must match Jenkins tool name
     }
 
     environment {
@@ -23,9 +23,11 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo "🧪 Running TestNG tests with Maven..."
-                // Run with retry mechanism for transient issues (like Selenium/Network)
+                // Retry mechanism for transient issues
                 retry(2) {
-                    sh 'mvn clean test -DsuiteXmlFile=testng.xml'
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        sh 'mvn clean test -DsuiteXmlFile=testng.xml'
+                    }
                 }
             }
             post {
@@ -35,48 +37,24 @@ pipeline {
                 }
             }
         }
-
-        stage('Generate Allure Report') {
-            steps {
-                echo "📊 Generating Allure report..."
-                sh 'mvn allure:report'
-            }
-        }
-
-        stage('Publish Allure Report') {
-            steps {
-                echo "🚀 Publishing Allure report to Jenkins..."
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    results: [[path: "${ALLURE_RESULTS}"]],
-                    reportBuildPolicy: 'ALWAYS'
-                ])
-            }
-        }
-
-        // Optional Parallel Execution (UI + API + Mobile)
-        // Uncomment if your project supports multiple suites
-        /*
-        stage('Parallel Suites') {
-            parallel {
-                stage('UI Tests') {
-                    steps { sh 'mvn test -DsuiteXmlFile=testng_ui.xml' }
-                }
-                stage('API Tests') {
-                    steps { sh 'mvn test -DsuiteXmlFile=testng_api.xml' }
-                }
-                stage('Mobile Tests') {
-                    steps { sh 'mvn test -DsuiteXmlFile=testng_mobile.xml' }
-                }
-            }
-        }
-        */
-
     }
 
+    // Always run after all stages (even if any fail)
     post {
         always {
+            echo "📊 Generating Allure report (always runs)..."
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                sh 'mvn allure:report || true'
+            }
+
+            echo "🚀 Publishing Allure report to Jenkins..."
+            allure([
+                includeProperties: false,
+                jdk: '',
+                results: [[path: "${ALLURE_RESULTS}"]],
+                reportBuildPolicy: 'ALWAYS'
+            ])
+
             echo "🧹 Cleaning workspace..."
             cleanWs()
         }
