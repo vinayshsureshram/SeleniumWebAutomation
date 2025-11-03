@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        ALLURE_RESULTS = "target/allure-results"
+        ALLURE_RESULTS = "allure-results"
         ALLURE_REPORT = "target/site/allure-maven-plugin"
     }
 
