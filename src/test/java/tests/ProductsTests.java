@@ -6,16 +6,16 @@ import io.qameta.allure.TmsLink;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Feature("Login")
-public class LoginTests extends BaseTest {
+@Feature("Accounts")
+public class ProductsTests extends BaseTest {
     private static final String USERNAME = "standard_user";
     private static final String PASSWORD = "secret_sauce";
 
     @Test
-    @TmsLink("TEST-12345")
-    void testLoginFlow() {
-        Assert.assertEquals(loginPage.getPageTitle(),"Swag Labs");
+    @TmsLink("TEST-67890")
+    void testAccountDetails() {
         Common.loginToApp(USERNAME, PASSWORD);
-        Assert.assertEquals(productsPage.getProductsHeader(), "Products");
+        productsPage.clickProduct("Sauce Labs Backpack");
+        Assert.assertEquals(productDetailsPage.getProductDetailsHeaderText(), "Sauce Labs Backpack");
     }
 }

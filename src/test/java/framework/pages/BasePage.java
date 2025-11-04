@@ -1,15 +1,15 @@
 package framework.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
-import com.google.common.base.Function;
 
 public class BasePage {
     protected static WebDriver driver;
     public BasePage (WebDriver driver) {
-        BasePage.driver = driver;
+        this.driver = driver;
     }
 
     protected static WebElement find(final By locator, int... args) {
@@ -22,16 +22,14 @@ public class BasePage {
                     .ignoring(Exception.class)
                     .ignoring(NoSuchElementException.class)
                     .ignoring(StaleElementReferenceException.class);
-
+/*
             WebElement webelement = wait.until(new Function<WebDriver, WebElement>() {
                 public WebElement apply(WebDriver driver) {
                     return driver.findElement(locator);
                 }
-            });
+            });*/
 
-            /* Alternatively
-            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-             */
+            WebElement webelement = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 
             return webelement;
         } catch (Exception e) {
@@ -46,6 +44,7 @@ public class BasePage {
     }
 
     protected void typeValue(String input, By locator) {
+        find(locator).clear();
         find(locator).sendKeys(input);
     }
 

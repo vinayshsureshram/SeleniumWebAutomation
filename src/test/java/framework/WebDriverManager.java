@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 public class WebDriverManager {
 
@@ -46,12 +45,14 @@ public class WebDriverManager {
 
     }
 
-    public static WebDriver getDriver() {
+    public WebDriver getDriver() {
         return tlDriver.get();
     }
 
     public static void quitDriver() {
-        tlDriver.get().quit();
-        tlDriver.remove();
+        if(tlDriver.get() != null) {
+            tlDriver.get().quit();
+            tlDriver.remove();
+        }
     }
 }

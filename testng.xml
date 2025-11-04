@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="tests" verbose="3">
+<suite name="All Test Suite" parallel="tests" thread-count="3" verbose="3">
     <listeners>
         <listener class-name="utils.TestListener"/>
     </listeners>
@@ -8,7 +8,7 @@
     <test name="Chrome Tests">
         <parameter name="browser" value="chrome">
         <classes>
-            <class name="tests.AccountsTests"/>
+            <class name="tests.ProductsTests"/>
             <class name="tests.LoginTests"/>
         </classes>
         </parameter>
@@ -16,7 +16,7 @@
     <test name="Firefox Tests">
         <parameter name="browser" value="firefox">
             <classes>
-                <class name="tests.AccountsTests"/>
+                <class name="tests.ProductsTests"/>
                 <class name="tests.LoginTests"/>
             </classes>
         </parameter>
@@ -24,7 +24,7 @@
     <test name="Edge Tests">
         <parameter name="browser" value="edge">
             <classes>
-                <class name="tests.AccountsTests"/>
+                <class name="tests.ProductsTests"/>
                 <class name="tests.LoginTests"/>
             </classes>
         </parameter>

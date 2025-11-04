@@ -1,8 +1,8 @@
 package tests;
 
 import framework.WebDriverManager;
-import framework.pages.AccountDetailsPage;
-import framework.pages.AccountsPage;
+import framework.pages.ProductDetailsPage;
+import framework.pages.ProductsPage;
 import framework.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -16,32 +16,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BaseTest {
-    public static WebDriver driver = null;
+    public static WebDriver driver;
     public static String platform = "Web";
     public static String formFactor = "MacOS";
     protected static LoginPage loginPage;
-    protected static AccountsPage accountsPage;
-    protected static AccountDetailsPage accountDetailsPage;
+    protected static ProductsPage productsPage;
+    protected static ProductDetailsPage productDetailsPage;
 
     public BaseTest() {
     }
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass
     @Parameters("browser")
     void setUp(String browser) throws Exception {
         driver = WebDriverManager.getInstance(browser).getDriver();
-        driver.navigate().to("https://parabank.parasoft.com/parabank/index.htm");
+        driver.navigate().to("https://www.saucedemo.com/");
         driver.manage().window().maximize();
 
         //Initialise page models
         loginPage = new LoginPage(driver);
-        accountsPage = new AccountsPage(driver);
-        accountDetailsPage = new AccountDetailsPage(driver);
+        productsPage = new ProductsPage(driver);
+        productDetailsPage = new ProductDetailsPage(driver);
 
         writeEnvironmentForAllureReport("QA", "ParaBank-25.0.0.3055", "Alpha");
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterClass
     void tearDown() {
         WebDriverManager.quitDriver();
     }
