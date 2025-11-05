@@ -8,8 +8,8 @@ import org.testng.annotations.Test;
 
 @Feature("Accounts")
 public class ProductsTests extends BaseTest {
-    private static final String USERNAME = "standard_user";
-    private static final String PASSWORD = "secret_sauce";
+    private static final String USERNAME = testData.readTestData("LoginTests", "USERNAME");
+    private static final String PASSWORD = testData.readTestData("LoginTests", "PASSWORD");
 
     @Test
     @TmsLink("TEST-67890")

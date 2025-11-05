@@ -1,0 +1,8 @@
+{
+  "QA": {
+    "LoginTests": {
+      "USERNAME": "standard_user",
+      "PASSWORD": "secret_sauce"
+    }
+  }
+}

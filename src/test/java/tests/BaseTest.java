@@ -4,10 +4,12 @@ import framework.WebDriverManager;
 import framework.pages.ProductDetailsPage;
 import framework.pages.ProductsPage;
 import framework.pages.LoginPage;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+import utils.TestData;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +24,16 @@ public class BaseTest {
     protected static LoginPage loginPage;
     protected static ProductsPage productsPage;
     protected static ProductDetailsPage productDetailsPage;
+
+    protected static TestData testData;
+
+    static {
+        try {
+            testData = new TestData("QA"); //Test data is the same for SIM and DEV
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public BaseTest() {
     }
@@ -38,7 +50,7 @@ public class BaseTest {
         productsPage = new ProductsPage(driver);
         productDetailsPage = new ProductDetailsPage(driver);
 
-        writeEnvironmentForAllureReport("QA", "ParaBank-25.0.0.3055", "Alpha");
+        writeEnvironmentForAllureReport("QA", "SwagLabs-25.0.0.3055", "Alpha");
     }
 
     @AfterClass

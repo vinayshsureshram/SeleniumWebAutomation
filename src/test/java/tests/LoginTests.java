@@ -14,7 +14,7 @@ public class LoginTests extends BaseTest {
     @Test
     @TmsLink("TEST-12345")
     void testLoginFlow() {
-        Assert.assertEquals(loginPage.getPageTitle(),"Swag Labs");
+        Assert.assertEquals(loginPage.getPageTitle(), "Swag Labs");
         Common.loginToApp(USERNAME, PASSWORD);
         Assert.assertEquals(productsPage.getProductsHeader(), "Products");
     }
